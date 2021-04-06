@@ -32,14 +32,22 @@ skip.addEventListener('click', () => {
 
 
 //SAVE button
-save.addEventListener('click', () => {
-    if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
-        //push the image URL to the array that already exists for that email address
-        console.log("the email address is already stored");
-    } else {
-        //create a new array with this image URL saved to it.
-        console.log("the email address is new");
+save.addEventListener('click', (event) => {
+    //IF INPUT IS VALID AND THE DATA CAN BE SUBMITED THEN DO THIS. Otherwise the default HTML validation will do its thing.
+    if(emailInput.validity.valid) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("i clicked save");
     }
+    // if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
+    //     //push the image URL to the array that already exists for that email address
+    //     console.log("the email address is already stored");
+    //     //savedEmailAddress = emailInput.value;
+    //     //emailInput.value = "";
+    // } else {
+    //     //create a new array with this image URL saved to it.
+    //     console.log("the email address is new");
+    // }
 })
 
 
