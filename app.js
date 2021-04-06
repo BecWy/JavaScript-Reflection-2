@@ -48,11 +48,11 @@ save.addEventListener('click', (event) => {
         //need to check if an object/ array contains the email address or something
         if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
             //push the image URL to the array that already exists for that email address
-            console.log("the email address is already stored");
+            console.log(`the email address is already stored - ${emailInput.value}`);
             savedEmailAddress = newEmailAddress;
         } else {
             //create a new array with this image URL saved to it.
-            console.log("the email address is new");
+            console.log(`the email address is new - ${emailInput.value}`);
             savedEmailAddress = newEmailAddress;
         }
         //clears the email input field, hides the email input, display a new image
