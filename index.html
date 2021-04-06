@@ -12,8 +12,37 @@
         <div class="img-container">
             <img src="" id="picsumImg">
         </div>
-        <div class="button">Skip</div>
-        <div class="button">Save</div>
+        <div class="button" id="skip">Skip</div>
+        <div class="button" id="save">Save</div>
+
+        <form action="contact.html">
+            <fieldset id="contact-fieldset">
+                <!-- <legend><span class="number">1</span>Your details</legend> -->
+                <!-- <label for="name" class="contact-label">Name:*</label><br>
+                <input type="text" id="name" name="user_name" class="contact-field" required="required"><br> -->
+                
+                <label for="email" class="contact-label">Email:*</label><br>
+                <input type="email" id="email" name="user_email" class="contact-field" required="required"><br>
+            </fieldset>  
+            <!-- <div id="button-div">
+                <button type="submit" id="submit-button" class="g-recaptcha" 
+                data-sitekey="reCAPTCHA_site_key" 
+                data-callback='onSubmit' 
+                data-action='submit'>
+                    Send
+                </button>
+            </div> -->
+          </form>
+
+        <div class="image-gallery">
+            <div class="gallery-image-containers">
+                <div class="gallery-image-container" id="gallery-img-1">
+                    <!-- <img src="" id="gallery-img-1"> -->
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <script src="./app.js"></script>
 </body>
