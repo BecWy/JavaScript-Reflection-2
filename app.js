@@ -9,8 +9,9 @@ let img2 = document.querySelector("#gallery-img-1");
 let emailInput = document.querySelector("#email");
 const skip = document.querySelector("#skip");
 const save = document.querySelector("#save");
+const formFieldset = document.querySelector("#form-fieldset");
 
-let savedEmailAddress = "test";
+let savedEmailAddress = "test@test.com";
 let newEmailAddress = emailInput.value;
 
 
@@ -19,7 +20,8 @@ let newEmailAddress = emailInput.value;
 
 //Page loaded event listener
 document.addEventListener('DOMContentLoaded', () => {
-    fetchFunction();
+    fetchImage();
+    formFieldset.style.display = "none";
 })
 
 ///Button event listeners
@@ -27,32 +29,42 @@ document.addEventListener('DOMContentLoaded', () => {
 //SKIP button
 //use the fetch function above to get a new image
 skip.addEventListener('click', () => {
-    fetchFunction();
+    fetchImage();
 })
 
 
 //SAVE button
 save.addEventListener('click', (event) => {
+    formFieldset.style.display = "block";
     //IF INPUT IS VALID AND THE DATA CAN BE SUBMITED THEN DO THIS. Otherwise the default HTML validation will do its thing.
     if(emailInput.validity.valid) {
         event.preventDefault();
         event.stopPropagation();
         console.log("i clicked save");
+        newEmailAddress = emailInput.value;
+
+        //need to check if the email address is new, or has been used previously.
+        //don't know how to do this yet!!! The below just checks a basic scenario
+        //need to check if an object/ array contains the email address or something
+        if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
+            //push the image URL to the array that already exists for that email address
+            console.log("the email address is already stored");
+            savedEmailAddress = newEmailAddress;
+        } else {
+            //create a new array with this image URL saved to it.
+            console.log("the email address is new");
+            savedEmailAddress = newEmailAddress;
+        }
+        //clears the email input field, hides the email input, display a new image
+        emailInput.value = "";
+        formFieldset.style.display = "none";
+        fetchImage();
     }
-    // if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
-    //     //push the image URL to the array that already exists for that email address
-    //     console.log("the email address is already stored");
-    //     //savedEmailAddress = emailInput.value;
-    //     //emailInput.value = "";
-    // } else {
-    //     //create a new array with this image URL saved to it.
-    //     console.log("the email address is new");
-    // }
+    
 })
 
 
-
-const fetchFunction = () => {
+const fetchImage = () => {
     fetch(url)
 ///get the data we need (aka the specific image's url) from the response
 .then(response => { 

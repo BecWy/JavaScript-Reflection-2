@@ -12,11 +12,21 @@
         <div class="img-container">
             <img src="" id="picsumImg">
         </div>
-        <div class="button" id="skip">Skip</div>
-        <!-- <div class="button" id="save">Save</div> -->
-
+        
         <form action="index.html">
-            <fieldset id="contact-fieldset">
+            <div class="buttons">
+                <div id="button-div">
+                    <button type="button" id="skip" class="button">
+                        Skip
+                    </button>
+                </div>
+                <div id="button-div">
+                    <button type="submit" id="save" class="button">
+                        Save
+                    </button>
+                </div>
+            </div> <!--end buttons-->
+            <fieldset id="form-fieldset">
                 <!-- <legend><span class="number">1</span>Your details</legend> -->
                 <!-- <label for="name" class="contact-label">Name:*</label><br>
                 <input type="text" id="name" name="user_name" class="contact-field" required="required"><br> -->
@@ -24,13 +34,6 @@
                 <label for="email" class="contact-label">Email:*</label><br>
                 <input type="email" id="email" name="user_email" class="contact-field" required="required"><br>
             </fieldset>  
-            <div id="button-div">
-                <button type="submit" id="save">
-                    <!-- data-callback='onSubmit'
-                    data-action='submit'> -->
-                    Save
-                </button>
-            </div>
           </form>
 
         <div class="image-gallery">
