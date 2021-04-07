@@ -15,6 +15,29 @@ let savedEmailAddress = "test@test.com";
 let newEmailAddress = emailInput.value;
 
 
+let allEmailsObject = {
+    "test@example.com": [
+        {
+            id: null,
+            url: null,
+        }
+    ],
+    "test2@example.com": [
+        {
+            id: null,
+            url: null,
+        },
+        {
+            id: null,
+            url: null,
+        }
+    ]
+};
+
+
+
+
+
 
 //EVENT LISTENERS ////////////////////////////////////////////////////////////////////////////////
 
@@ -69,7 +92,7 @@ const fetchImage = () => {
 ///get the data we need (aka the specific image's url) from the response
 .then(response => { 
     response.blob();
-    //console.log(response);
+    console.log(response);
     return response.url;
 })
 //set the image source to the url that comes back from the API. Also need to reuse this later to attach it to an email
