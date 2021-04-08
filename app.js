@@ -85,14 +85,8 @@ save.addEventListener('click', (event) => {
             console.log(`the email address is new - ${emailInput.value}`); //for testing, checking which condition was used
         }
 
-        //clears the email input field, hides the email input, display a new image
-        emailInput.value = "";
-        formFieldset.style.display = "none";
-        console.log(emailAddresses); //for testing, appears to be working correctly 
-        fetchImage();
-
-
-        ///need to add images to the gallery
+        //GALLERY
+         ///need to add images to the gallery
         //need to create objects? Use divs so that the image can be added as a background image and will therefore resize for
         //different screen sizes
         //one div per array? or one per image? or a slideshow of images for each array
@@ -100,22 +94,43 @@ save.addEventListener('click', (event) => {
         //and then each time an image data object is created it creates a div within the parent container?
         //need to work out how to append each item.
 
-
-
         //CREATE ELEMENT EXAMPLE
         //how am I going to make sure that the image div is added to the correct email div?
         //can I add a class name, which uses the 'property' value in the for...in loop?
         // so whenever an email array is created it is given the class name gallery-${property}
         //I can then add the image to the object with the class name gallery-${property} 
-
-        let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
-        let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
         
-        imageContainer.style.backgroundImage = `url(${currentImageURL})`; //add image as a background image so it can be resized
-        emailContainer.appendChild(imageContainer);               // Append image to email address container
+        let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
+        //let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
+        let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
 
-        gallery.appendChild(emailContainer); //append email address container to the gallery
+        emailContainer.appendChild(imageContainer);            // Append image to email address container
+        gallery.appendChild(emailContainer);                  //append email address container to the gallery
+        
+        //imageContainer.style.backgroundImage = `url(${currentImageURL})`;
+        imageContainer.src = currentImageURL;
+        
+    
 
+        // fetch(currentImageURL)
+        // .then(response => { 
+        //     imageContainer.style.backgroundImage = `url(${response.url})`; //add image as a background image so it can be resized
+        // })
+
+        
+        
+
+        
+
+
+
+
+        //RESET
+        //clears the email input field, hides the email input, display a new image
+        emailInput.value = "";
+        formFieldset.style.display = "none";
+        console.log(emailAddresses); //for testing, appears to be working correctly 
+        fetchImage();
     }
 })
 
@@ -132,7 +147,7 @@ const fetchImage = () => {
 .then(data => {
     img.src = data;
     currentImageURL = data;
-    img2.style.backgroundImage = `url(${currentImageURL})`;
+    //img2.style.backgroundImage = `url(${currentImageURL})`; //remove when certain no longer needed
 })
 //catch is what needs to happen if there is an error
 .catch(err => {
