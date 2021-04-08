@@ -11,9 +11,11 @@ const save = document.querySelector("#save");
 const formFieldset = document.querySelector("#form-fieldset");
 
 let newEmailAddress = emailInput.value; //the email address that has just been input
-let savedEmailAddress = "test@test.com"; //when the for...in loop checks if an email address already exists it will save an existing email address to here
+let savedEmailAddress = "test@testtesttest.com"; //when the for...in loop checks if an email address already exists it will save an existing email address to here
 let emailAddresses = {}; //this object holds all of the email addresses. Each email is its own array, containing an object of image data.
 let currentImageURL; 
+
+const gallery = document.querySelector(".gallery-image-containers");
 
 
 
@@ -34,7 +36,7 @@ skip.addEventListener('click', () => {
 })
 
 
-//SAVE button - will end up splitting this into a save button and a send email button I think, rather than use the same button twice
+//SAVE button - will end up splitting this into a save button and a send/submit email button I think, rather than use the same button twice
 save.addEventListener('click', (event) => {
     formFieldset.style.display = "block";
     //IF INPUT IS VALID AND THE DATA CAN BE SUBMITED THEN DO THIS. Otherwise the default HTML validation will do its thing.
@@ -88,8 +90,33 @@ save.addEventListener('click', (event) => {
         formFieldset.style.display = "none";
         console.log(emailAddresses); //for testing, appears to be working correctly 
         fetchImage();
+
+
+        ///need to add images to the gallery
+        //need to create objects? Use divs so that the image can be added as a background image and will therefore resize for
+        //different screen sizes
+        //one div per array? or one per image? or a slideshow of images for each array
+        //each time an email address array is created it creates a container div?
+        //and then each time an image data object is created it creates a div within the parent container?
+        //need to work out how to append each item.
+
+
+
+        //CREATE ELEMENT EXAMPLE
+        //how am I going to make sure that the image div is added to the correct email div?
+        //can I add a class name, which uses the 'property' value in the for...in loop?
+        // so whenever an email array is created it is given the class name gallery-${property}
+        //I can then add the image to the object with the class name gallery-${property} 
+
+        let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
+        let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
+        
+        imageContainer.style.backgroundImage = `url(${currentImageURL})`; //add image as a background image so it can be resized
+        emailContainer.appendChild(imageContainer);               // Append image to email address container
+
+        gallery.appendChild(emailContainer); //append email address container to the gallery
+
     }
-    
 })
 
 
@@ -105,53 +132,14 @@ const fetchImage = () => {
 .then(data => {
     img.src = data;
     currentImageURL = data;
-    //console.log(data);
-    return data;
+    img2.style.backgroundImage = `url(${currentImageURL})`;
 })
-.then(data => {
-    //console.log(data); //for testing
-    img2.style.backgroundImage = `url(${data})`;
-}) 
 //catch is what needs to happen if there is an error
 .catch(err => {
-    //let nm = err.name;
-    //let msg = err.message;
-    //alert(`CATCH: ${nm} ${msg}`);
-    alert("ERROR");
+    alert("Please refresh the page");
 });
 }
 
-
-
-
-
-// fetch(url)
-// .then(response => {
-//     response.json(); // parses JSON response into native JavaScript objects
-// })
-// .then(data => {
-//     img.src = url;
-//     //let str = data.stringify();
-
-//     console.log(data)
-//     //let str = JSON.stringify(data, null, '\t');
-//     //document.querySelector("#output pre").textContent = str;
-    
-// })
-// .catch(err => {
-//     let nm = err.name;
-//     let msg = err.message;
-//     alert(`CATCH: ${nm} ${msg}`);
-// });
-
-
-
-// let submittedData = {      //the data saved to each object
-//     name: nameInput.value, 
-//     email: emailInput.value, 
-//     phone: phoneInput.value,
-//     message: messageInput.value,
-// };
 
 
 
