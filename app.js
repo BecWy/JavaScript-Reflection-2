@@ -147,7 +147,7 @@ const fetchImage = () => {
 .then(data => {
     img.src = data;
     currentImageURL = data;
-    //img2.style.backgroundImage = `url(${currentImageURL})`; //remove when certain no longer needed
+    //img2.style.backgroundImage = `url(${currentImageURL})`; //remove when certain no longer needed for testing
 })
 //catch is what needs to happen if there is an error
 .catch(err => {
