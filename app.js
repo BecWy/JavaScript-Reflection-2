@@ -2,7 +2,6 @@
 //link provided to a polyfill in this article https://css-tricks.com/using-fetch/
 
 
-
 let url = "https://picsum.photos/300";
 let img = document.querySelector("#picsumImg");
 let img2 = document.querySelector("#gallery-img-1");
@@ -11,35 +10,10 @@ const skip = document.querySelector("#skip");
 const save = document.querySelector("#save");
 const formFieldset = document.querySelector("#form-fieldset");
 
-let savedEmailAddress = "test@test.com"; //for testing, will be deleted when no longer needed
-let newEmailAddress = emailInput.value;
-
+let newEmailAddress = emailInput.value; //the email address that has just been input
+let savedEmailAddress = "test@test.com"; //when the for...in loop checks if an email address already exists it will save an existing email address to here
 let emailAddresses = {}; //this object holds all of the email addresses. Each email is its own array, containing an object of image data.
-
-let currentImageURL;
-
-
-// let allEmailsObject = {
-//     "test@example.com": [
-//         {
-//             id: null,
-//             url: null,
-//         }
-//     ],
-//     "test2@example.com": [
-//         {
-//             id: null,
-//             url: null,
-//         },
-//         {
-//             id: null,
-//             url: null,
-//         }
-//     ]
-// };
-
-
-
+let currentImageURL; 
 
 
 
@@ -67,45 +41,52 @@ save.addEventListener('click', (event) => {
     if(emailInput.validity.valid) {
         event.preventDefault();
         event.stopPropagation();
-        //console.log("i clicked save");
         newEmailAddress = emailInput.value;
 
-        //need to check if the email address is new, or has been used previously.
-        //don't know how to do this yet!!! The below just checks a basic scenario
-        //need to check if an object/ array contains the email address or something
-        if(newEmailAddress.toLowerCase() === savedEmailAddress.toLowerCase()) {
-            //push the image URL to the array that already exists for that email address
-            console.log(`the email address is already stored - ${emailInput.value}`);
-            savedEmailAddress = newEmailAddress;
-        } else {
-            //create a new array for the email address. Inside this will be an object with the image data (URL) inside
+        //attempt at using a for..in loop to check previous email addresses
+        for (const property in emailAddresses) {
+            if(newEmailAddress.toLowerCase() === property) {
+
+                console.log(`The email address already exists: ${property}`);
+
+                 //create image data object
+                let imageDataObject = {
+                    url: currentImageURL
+                };
+
+                //push this image data object onto the existing array
+                emailAddresses[property].push(imageDataObject);
+
+                //save the property to the savedEmailAddress email so that if the object hasn't been created here 
+                //then a new email address array is created below after comparing the current email address with the saved email address
+                savedEmailAddress = property;
+
+            }
+        }
+          
+        //checks if the email address has been used previously. If it hasn't then it creates a new email address array with the image data inside
+        if(newEmailAddress.toLowerCase() !== savedEmailAddress.toLowerCase()) {
             
             //create image data object
             let imageDataObject = {
                 url: currentImageURL
             };
 
-            //console.log(imageDataObject); //for testing, the object appears to be created correctly
-            //console.log(`The current URL is ${currentImageURL}`); //for testing, the url appears correct
-
-            //create email array and push the data in
+            //create a new array for the email address and push the image data in
             let emailArray = [];
             emailArray.push(imageDataObject);
-            //console.log(emailArray); //for testing, the array appears to be created correctly and contains the imageDataObject
-
 
             //add the email array to the email addresses object as a key (name) and property (the array itself)
             //need to use the variable as a key name
             //example: object[key] = "your_choice";
             emailAddresses[newEmailAddress.toLowerCase()] = emailArray;
-            console.log(emailAddresses); //for testing, appears to be working correctly: the email addresses object contains the email array(s) which contains the image data object(s)
-
-            //console.log(`the email address is new - ${emailInput.value}`); for testing, for checking which condition was used
-            savedEmailAddress = newEmailAddress;
+            console.log(`the email address is new - ${emailInput.value}`); //for testing, checking which condition was used
         }
+
         //clears the email input field, hides the email input, display a new image
         emailInput.value = "";
         formFieldset.style.display = "none";
+        console.log(emailAddresses); //for testing, appears to be working correctly 
         fetchImage();
     }
     
