@@ -63,6 +63,11 @@ save.addEventListener('click', (event) => {
                 //then a new email address array is created below after comparing the current email address with the saved email address
                 savedEmailAddress = property;
 
+                //add image to gallery in the DOM
+                let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
+                let parentContainer = document.querySelector(`.gallery-${CSS.escape(newEmailAddress)}`); //have to use CSS.escape in order to use a variable in document.querySelector 
+                parentContainer.appendChild(imageContainer);  // Append image to email address container
+                imageContainer.src = currentImageURL; //add the URL as the img src
             }
         }
           
@@ -83,6 +88,25 @@ save.addEventListener('click', (event) => {
             //example: object[key] = "your_choice";
             emailAddresses[newEmailAddress.toLowerCase()] = emailArray;
             console.log(`the email address is new - ${emailInput.value}`); //for testing, checking which condition was used
+        
+            //create the gallery in the DOM
+            //create elements
+            let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
+            let heading = document.createElement("h2"); //create a heading for each div
+            let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
+            
+            //append elements
+            emailContainer.appendChild(heading); //Append heading to email address container
+            emailContainer.appendChild(imageContainer);  // Append image to email address container
+            gallery.appendChild(emailContainer);  //append email address container to the gallery
+            
+            //display image & heading text
+            imageContainer.src = currentImageURL; //add the URL as the img src
+            heading.innerHTML = newEmailAddress;
+
+            //add class to email div
+            emailContainer.classList.add(`gallery-${newEmailAddress}`); //use the email address as a class name, so this can be accessed when checking if an email already exists as a property
+        
         }
 
         //GALLERY
@@ -100,30 +124,16 @@ save.addEventListener('click', (event) => {
         // so whenever an email array is created it is given the class name gallery-${property}
         //I can then add the image to the object with the class name gallery-${property} 
         
-        let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
-        //let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
-        let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
+        //let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
+        ///////////////////let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
+        //let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
 
-        emailContainer.appendChild(imageContainer);            // Append image to email address container
-        gallery.appendChild(emailContainer);                  //append email address container to the gallery
+        //emailContainer.appendChild(imageContainer);            // Append image to email address container
+        //gallery.appendChild(emailContainer);                  //append email address container to the gallery
         
-        //imageContainer.style.backgroundImage = `url(${currentImageURL})`;
-        imageContainer.src = currentImageURL;
+        ////////////////////imageContainer.style.backgroundImage = `url(${currentImageURL})`;
+        //imageContainer.src = currentImageURL;
         
-    
-
-        // fetch(currentImageURL)
-        // .then(response => { 
-        //     imageContainer.style.backgroundImage = `url(${response.url})`; //add image as a background image so it can be resized
-        // })
-
-        
-        
-
-        
-
-
-
 
         //RESET
         //clears the email input field, hides the email input, display a new image
