@@ -1,13 +1,21 @@
 * {
     box-sizing: border-box;
     border-radius: 5px;
+    
+    font-family: 'Open Sans', sans-serif; //have font-weights of 300, 400, 600
 }
+
+$color1: #017883;
+//$color2: #00484e;
+//$color2: #d76500;
+//$color2: #151818;
+//$color2: #192122;
+$color2: #0d1b1d;
 
 img {
     max-width: 100%;
     max-height: 100%;
 }
-
 
 .body-container {
     //width: 400px;
@@ -16,6 +24,34 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.intro {
+    text-align: center;
+    h1,
+    h2 {
+        font-family: 'Raleway', sans-serif; //have font-weights of 200, 400, 500, 600
+        color: $color1;
+        letter-spacing: 1px;
+    }
+    h1 {
+        font-size: 40px;
+        font-weight: 200;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 50px;
+    }
+
+    p {
+        color: $color2;
+        //margin-top: 40px;
+        //margin-bottom: 40px;
+    }
 }
 
 form {
@@ -32,6 +68,7 @@ form {
     max-height: 300px;
     display: flex;
     flex-direction: column;
+    margin-top: 40px;
 }
 
 .buttons {
@@ -54,16 +91,17 @@ form {
     height: 50px;
     color: white;
     font-size: 16px;
+    font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
     outline: none;
     border: none;
-    background-color: teal;
+    background-color: $color1;
     cursor: pointer;
     &:hover {
-       border: 2px solid teal; 
+       border: 2px solid $color1; 
        background-color: white;
-       color: teal;
+       color: $color1; 
     }
 }
 
@@ -105,24 +143,10 @@ form {
     h2 {
         width: 100%;
         text-align: center;
-        color: teal;
+        color: $color1; 
         font-size: 16px;
+        font-weight: 400;
         letter-spacing: 1px;
     }
 
 }
-
-
-
-
-
-
-// .gallery-image-containers > .gallery-image-container {
-//     width: 200px;
-//     height: 200px;
-//     border: 3px solid navy;
-//     background-position: center; 
-//     background-repeat: no-repeat;
-//     background-size: cover; 
-//     margin-top: 20px;
-// }

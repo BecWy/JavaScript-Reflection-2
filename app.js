@@ -4,13 +4,12 @@
 
 let url = "https://picsum.photos/300";
 let img = document.querySelector("#picsumImg");
-let img2 = document.querySelector("#gallery-img-1");
 let emailInput = document.querySelector("#email");
 const skip = document.querySelector("#skip");
 const save = document.querySelector("#save");
 const formFieldset = document.querySelector("#form-fieldset");
 
-let newEmailAddress = emailInput.value; //the email address that has just been input
+let newEmailAddress = emailInput.value.toLowerCase(); //the email address that has just been input
 let savedEmailAddress = "test@testtesttest.com"; //when the for...in loop checks if an email address already exists it will save an existing email address to here
 let emailAddresses = {}; //this object holds all of the email addresses. Each email is its own array, containing an object of image data.
 let currentImageURL; 
@@ -43,13 +42,12 @@ save.addEventListener('click', (event) => {
     if(emailInput.validity.valid) {
         event.preventDefault();
         event.stopPropagation();
-        newEmailAddress = emailInput.value;
+        newEmailAddress = emailInput.value.toLowerCase();
 
         //attempt at using a for..in loop to check previous email addresses
         for (const property in emailAddresses) {
-            if(newEmailAddress.toLowerCase() === property) {
-
-                console.log(`The email address already exists: ${property}`);
+            if(newEmailAddress === property) {
+                //console.log(`The email address already exists: ${property}`); //for testing
 
                  //create image data object
                 let imageDataObject = {
@@ -72,7 +70,7 @@ save.addEventListener('click', (event) => {
         }
           
         //checks if the email address has been used previously. If it hasn't then it creates a new email address array with the image data inside
-        if(newEmailAddress.toLowerCase() !== savedEmailAddress.toLowerCase()) {
+        if(newEmailAddress !== savedEmailAddress) {
             
             //create image data object
             let imageDataObject = {
@@ -109,31 +107,7 @@ save.addEventListener('click', (event) => {
         
         }
 
-        //GALLERY
-         ///need to add images to the gallery
-        //need to create objects? Use divs so that the image can be added as a background image and will therefore resize for
-        //different screen sizes
-        //one div per array? or one per image? or a slideshow of images for each array
-        //each time an email address array is created it creates a container div?
-        //and then each time an image data object is created it creates a div within the parent container?
-        //need to work out how to append each item.
-
-        //CREATE ELEMENT EXAMPLE
-        //how am I going to make sure that the image div is added to the correct email div?
-        //can I add a class name, which uses the 'property' value in the for...in loop?
-        // so whenever an email array is created it is given the class name gallery-${property}
-        //I can then add the image to the object with the class name gallery-${property} 
-        
-        //let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
-        ///////////////////let imageContainer = document.createElement("div");  // Create a div element for the image, everytime an image object is created
-        //let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
-
-        //emailContainer.appendChild(imageContainer);            // Append image to email address container
-        //gallery.appendChild(emailContainer);                  //append email address container to the gallery
-        
-        ////////////////////imageContainer.style.backgroundImage = `url(${currentImageURL})`;
-        //imageContainer.src = currentImageURL;
-        
+      
 
         //RESET
         //clears the email input field, hides the email input, display a new image
@@ -157,7 +131,6 @@ const fetchImage = () => {
 .then(data => {
     img.src = data;
     currentImageURL = data;
-    //img2.style.backgroundImage = `url(${currentImageURL})`; //remove when certain no longer needed for testing
 })
 //catch is what needs to happen if there is an error
 .catch(err => {
