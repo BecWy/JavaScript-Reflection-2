@@ -64,7 +64,10 @@ const fetchImageIE = () => {
     .then((response) => {
         picsumID = response.headers['picsum-id'];
         console.log(picsumID);
-        currentImageURL = `https://i.picsum.photos/id/${picsumID}/300/300.jpg?hmac=qFcML5AJRd-Ov5ASMVAPHZwwet8tRtGTC6Mg8_pfcJM`;
+        //currentImageURL = `https://i.picsum.photos/id/${picsumID}/300/300.jpg?hmac=qFcML5AJRd-Ov5ASMVAPHZwwet8tRtGTC6Mg8_pfcJM`;
+        currentImageURL = `https://picsum.photos/id/${picsumID}/300/300`;
+        
+        
         console.log(currentImageURL);
         img.src = currentImageURL;
     })
