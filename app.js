@@ -1,5 +1,7 @@
 //IMPORTANT - will need to write a polyfill for fetch in IE. Couldn't get any of the pre-existing ones to work.
 
+//polyfill for css.escape https://github.com/mathiasbynens/CSS.escape 
+
 
 let url = "https://picsum.photos/300";
 let img = document.querySelector("#picsumImg");
@@ -27,9 +29,6 @@ if ( isIE ) {
 } else {
     internetExplorer = false;
 }
-
-console.log(internetExplorer);
-
 
 
 
@@ -60,15 +59,9 @@ const fetchImageIE = () => {
     // axios.get(url) //note that Axios data is automatically parsed to a JS object
     // ///get the data we need (aka the specific image's url) from the response
     const axiosImage = () => axios.get("https://picsum.photos/300")
-    //axios.get("https://picsum.photos/300")
     .then((response) => {
         picsumID = response.headers['picsum-id'];
-        console.log(picsumID);
-        //currentImageURL = `https://i.picsum.photos/id/${picsumID}/300/300.jpg?hmac=qFcML5AJRd-Ov5ASMVAPHZwwet8tRtGTC6Mg8_pfcJM`;
         currentImageURL = `https://picsum.photos/id/${picsumID}/300/300`;
-        
-        
-        console.log(currentImageURL);
         img.src = currentImageURL;
     })
     //catch is what needs to happen if there is an error
@@ -163,7 +156,7 @@ save.addEventListener('click', (event) => {
             //need to use the variable as a key name
             //example: object[key] = "your_choice";
             emailAddresses[newEmailAddress.toLowerCase()] = emailArray;
-            console.log(`the email address is new - ${emailInput.value}`); //for testing, checking which condition was used
+            //console.log(`the email address is new - ${emailInput.value}`); //for testing, checking which condition was used
         
             //create the gallery in the DOM
             //create elements
