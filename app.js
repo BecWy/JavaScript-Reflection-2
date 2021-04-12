@@ -7,6 +7,7 @@ let url = "https://picsum.photos/300";
 let img = document.querySelector("#picsumImg");
 let emailInput = document.querySelector("#email");
 const skip = document.querySelector("#skip");
+const keep = document.querySelector("#keep");
 const save = document.querySelector("#save");
 const formFieldset = document.querySelector("#form-fieldset");
 
@@ -39,8 +40,10 @@ const fetchImage = () => {
     fetch(url)
     ///get the data we need (aka the specific image's url) from the response
     .then(response => { 
-        response.blob();
-        //console.log(response);
+        response.blob(); 
+        console.log(response);
+        picsumID = response.headers.get('picsum-id');
+        console.log(picsumID);
         return response.url;
     })
     //set the image source to the url that comes back from the API. Also need to reuse this later to attach it to an email
@@ -70,13 +73,6 @@ const fetchImageIE = () => {
     });
 
     axiosImage();
-    //use the photo ID number to set the correct URL
-        //currentImageURL = `https://i.picsum.photos/id/${picsumID}/300/300.jpg?hmac=qFcML5AJRd-Ov5ASMVAPHZwwet8tRtGTC6Mg8_pfcJM`;
-    
-    //console.log(485749854965956);
-        //console.log(`https://i.picsum.photos/id/${picsumID}/300/300.jpg?hmac=qFcML5AJRd-Ov5ASMVAPHZwwet8tRtGTC6Mg8_pfcJM`);
-        //console.log(currentImageURL);
-        //img.src = currentImageURL;
 };
 
 
@@ -105,10 +101,21 @@ skip.addEventListener('click', () => {
     }
 })
 
+//KEEP button
+//show/ hide the form
+keep.addEventListener('click', () => {
+    if(formFieldset.style.display === "none") {
+        formFieldset.style.display = "flex";
+        emailInput.focus(); //sets the focus state on the input field so the user can type without selecting the field
+    } else {
+        formFieldset.style.display = "none";
+    }
+})
+
 
 //SAVE button - will end up splitting this into a save button and a send/submit email button I think, rather than use the same button twice
 save.addEventListener('click', (event) => {
-    formFieldset.style.display = "block";
+    
     //IF INPUT IS VALID AND THE DATA CAN BE SUBMITED THEN DO THIS. Otherwise the default HTML validation will do its thing.
     if(emailInput.validity.valid) {
         event.preventDefault();
