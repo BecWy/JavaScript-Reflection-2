@@ -89,24 +89,44 @@ const fetchImageIE = () => {
     return imageObject;
 };
 
+
+//CREATE AN IMAGE ELEMENT INSIDE AN <A> ELEMENT /////////////////////////////////////////////////////////
+const createImageElement = () => {
+    let imageElement = document.createElement("img");  // Create a img element for the image, everytime an image object is created
+    let imageAnchor = document.createElement("a"); //create an <a> which will be the parent of the img element
+    
+    //display image and set the alt to the photo's ID number
+    imageElement.src = currentImageURL; //add the URL as the img src
+    imageElement.alt = picsumID;
+
+    //set the <a> link, open this link in a new tab, 
+    imageAnchor.href = currentImageURL;
+    imageAnchor.target = "_blank";
+
+    //append image
+    imageAnchor.appendChild(imageElement); //Append image to <a> tag
+
+    //return the image anchor as this is the parent element. This can then be used to append the new image to an email gallery.
+    return imageAnchor;
+}
+
 //CREATE A NEW EMAIL GALLERY IN THE DOM//////////////////////////////////////////////////////////////////
 const createEmailGallery = () => {
     //create elements
-    let emailContainer = document.createElement("div");   // Create a div element for the email address, but only when this is first created
+    const newImage = createImageElement();
+    let emailGallery = document.createElement("div");   // Create a div element for the email address, but only when this is first created
     let heading = document.createElement("h2"); //create a heading for each div
-    let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
     
     //append elements
-    emailContainer.appendChild(heading); //Append heading to email address container
-    emailContainer.appendChild(imageContainer);  // Append image to email address container
-    gallery.appendChild(emailContainer);  //append email address container to the gallery
+    emailGallery.appendChild(heading); //Append heading to email address container
+    emailGallery.appendChild(newImage); //Append the image to the email address container
+    gallery.appendChild(emailGallery);  //append email address container to the gallery
     
-    //display image & heading text
-    imageContainer.src = currentImageURL; //add the URL as the img src
+    //set heading text
     heading.innerHTML = newEmailAddress;
-
-    //add class to email div
-    emailContainer.classList.add(`gallery-${newEmailAddress}`); //use the email address as a class name, so this can be accessed when checking if an email already exists as a property
+    
+    //add a class to the email div so that new images can be added to the correct email div at a later point
+    emailGallery.classList.add(`gallery-${newEmailAddress}`); //use the email address as a class name, so this can be accessed when checking if an email already exists as a property
 }
 
 //RESET AFTER AN IMAGE IS SAVED //////////////////////////////////////////////////////////////////
@@ -187,10 +207,10 @@ save.addEventListener('click', (event) => {
                 savedEmailAddress = property;
 
                 //add image to the correct email gallery in the DOM
-                let imageContainer = document.createElement("img");  // Create a img element for the image, everytime an image object is created
+                let imageElement = document.createElement("img");  // Create a img element for the image, everytime an image object is created
                 let parentContainer = document.querySelector(`.gallery-${CSS.escape(newEmailAddress)}`); //have to use CSS.escape in order to use a variable in document.querySelector 
-                parentContainer.appendChild(imageContainer);  // Append image to email address container
-                imageContainer.src = currentImageURL; //add the URL as the img src
+                parentContainer.appendChild(imageElement);  // Append image to email address container
+                imageElement.src = currentImageURL; //add the URL as the img src
             }
         }
           
