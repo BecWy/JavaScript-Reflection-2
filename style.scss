@@ -189,6 +189,10 @@ form {
             height: 100px;
             width: 100px;
             margin: 5px;
+            transition: all 1s ease-out;
+            &:hover {
+                opacity: 0.6;
+            }
         }
     }
     h2 {
@@ -200,4 +204,19 @@ form {
         letter-spacing: 1px;
     }
 
+    a {
+        position: relative;
+    }
+}
+
+.delete-button {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid red;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
 }

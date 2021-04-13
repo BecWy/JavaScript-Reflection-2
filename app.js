@@ -10,10 +10,12 @@ let emailInput = document.querySelector("#email");
 const skip = document.querySelector("#skip");
 const keep = document.querySelector("#keep");
 const save = document.querySelector("#save");
+const deleteButton = document.querySelector(".delete-button");
 const formFieldset = document.querySelector("#form-fieldset");
+const divElements = document.querySelector("div");
 
 let newEmailAddress = emailInput.value.toLowerCase(); //the email address that has just been input
-let savedEmailAddress = "test@testtesttest.com"; //when the for...in loop checks if an email address already exists it will save an existing email address to here
+let savedEmailAddress; //when the for...in loop checks if an email address already exists it will save an existing email address to here
 let emailAddresses = {}; //this object holds all of the email addresses. Each email is its own array, containing an object of image data.
 let currentImageURL;
 let picsumID; 
@@ -44,9 +46,7 @@ const fetchImage = () => {
     ///get the data we need (aka the specific image's url) from the response
     .then(response => { 
         response.blob(); 
-        console.log(response);
         picsumID = response.headers.get('picsum-id');
-        console.log(picsumID);
         return response.url;
     })
     //set the image source to the url that comes back from the API. Also need to reuse this later to attach it to an email
@@ -95,12 +95,18 @@ const createImageElement = () => {
     let imageElement = document.createElement("img");  // Create a img element for the image, everytime an image object is created
     let imageAnchor = document.createElement("a"); //create an <a> which will be the parent of the img element
     
+    //create and append a delete button to each image
+    let newDeleteButton = document.createElement("div");
+    newDeleteButton.classList.add('delete-button');
+    imageAnchor.appendChild(newDeleteButton);
+    imageAnchor.style.position = "relative";
+
     //display image and set the alt to the photo's ID number
     imageElement.src = currentImageURL; //add the URL as the img src
     imageElement.alt = picsumID;
 
     //set the <a> link, open this link in a new tab, 
-    imageAnchor.href = currentImageURL;
+    //imageAnchor.href = currentImageURL; //temporarily disabled for testing delete button
     imageAnchor.target = "_blank";
 
     //append image
@@ -199,29 +205,26 @@ save.addEventListener('click', (event) => {
             if(newEmailAddress === property) {
                 //create an image object for the selected image
                 //push this image object onto the existing email array to that it appears in the gallery for that email address
-                const newImage = createImageObject();
-                emailAddresses[property].push(newImage);
+                const newImageObject = createImageObject();
+                emailAddresses[property].push(newImageObject);
 
                 //save the property to the savedEmailAddress email so that if the object hasn't been created here 
                 //then a new email address array is created below after comparing the current email address with the saved email address
                 savedEmailAddress = property;
 
-                //add image to the correct email gallery in the DOM
-                let imageElement = document.createElement("img");  // Create a img element for the image, everytime an image object is created
-                let parentContainer = document.querySelector(`.gallery-${CSS.escape(newEmailAddress)}`); //have to use CSS.escape in order to use a variable in document.querySelector 
-                parentContainer.appendChild(imageElement);  // Append image to email address container
-                imageElement.src = currentImageURL; //add the URL as the img src
+                //Create a new image and append this to the existing email gallery
+                const newImageElement = createImageElement();
+                let emailGallery = document.querySelector(`.gallery-${CSS.escape(newEmailAddress)}`); //have to use CSS.escape in order to use a variable in document.querySelector 
+                emailGallery.appendChild(newImageElement);  // Append image to email address container
             }
         }
           
         //IF THE EMAIL ADDRESS ISN'T SAVED 
         //use the condition to check if the email address has been used previously. 
         //If it hasn't then it creates a new email address array with the image data inside
-        //If it has then this is ignored
         if(newEmailAddress !== savedEmailAddress) {
-            //create an image object for the selected image
-            //create a new array for the email address
-            //push the image data into the email address array
+            //1) create an image object for the selected image 2) create a new array for the email address
+            //3) push the image data into the email address array
             const newImage = createImageObject();
             let newEmail = [];
             newEmail.push(newImage);
@@ -239,10 +242,35 @@ save.addEventListener('click', (event) => {
     }
 })
 
+//DELETE BUTTON EVENT LISTENER ///////////////////////////////////////////////////////////////////////
+//NOTE can't add an event listener to an element that doesn't exist yet.
+//so have to add it to the body/another selector, and then check for a class name.
+//also, if it's the last image attached to the email then I need to delete the whole email gallery - needs to check array length.
+//need to check parent id or url
+divElements.addEventListener('click', (event)=> {
+    
+    ///numberOfChildren includes the number of images in the email gallery AS WELL AS THE HEADER
+    let numberOfChildren = event.target.parentElement.parentElement.childElementCount;
+    //console.log(numberOfChildren);
+
+        if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
+            console.log("delete EMAIL GALLERY");
+            event.target.parentElement.parentElement.remove();
+        }
+
+        else if(event.target.classList.contains("delete-button")) {
+            console.log("delete IMAGE");
+           event.target.parentElement.remove();
+        } 
+    
+})
 
 
+//USING ARRAY.FILTER
+// var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+// var filtered = array.filter(function(value, index, arr){ 
+//     return value > 5;
+// });
 
-
-
-
-
+//filtered => [6, 7, 8, 9]
+//array => [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
