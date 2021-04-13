@@ -255,12 +255,26 @@ divElements.addEventListener('click', (event)=> {
 
         if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
             console.log("delete EMAIL GALLERY");
-            event.target.parentElement.parentElement.remove();
+            //remove the whole email gallery, as this is the last image
+            event.target.parentElement.parentElement.remove(); 
+            //delete the email array from the email addresses object
+            for (const property in emailAddresses) {
+                    //check the element's class name to make sure that only the correct email array is deleted
+                    if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
+                        //let email = property;
+                        console.log("delete the email array");
+                        delete emailAddresses[property];
+                        
+                        //delete emailAddresses.${CSS.escape(property)}; 
+                        console.log(emailAddresses);
+                    }
+            }
         }
 
         else if(event.target.classList.contains("delete-button")) {
             console.log("delete IMAGE");
-           event.target.parentElement.remove();
+           event.target.parentElement.remove(); //remove the selected image only
+           //add code to remove the selected image object from the array
         } 
     
 })
