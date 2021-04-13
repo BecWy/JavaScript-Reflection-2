@@ -109,6 +109,9 @@ const createImageElement = () => {
     //imageAnchor.href = currentImageURL; //temporarily disabled for testing delete button
     imageAnchor.target = "_blank";
 
+    //add the picsum ID as a class to the image Anchor
+    imageAnchor.classList.add(`picsumID-${picsumID}`);
+
     //append image
     imageAnchor.appendChild(imageElement); //Append image to <a> tag
 
@@ -253,29 +256,81 @@ divElements.addEventListener('click', (event)=> {
     let numberOfChildren = event.target.parentElement.parentElement.childElementCount;
     //console.log(numberOfChildren);
 
-        if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
-            console.log("delete EMAIL GALLERY");
-            //remove the whole email gallery, as this is the last image
-            event.target.parentElement.parentElement.remove(); 
-            //delete the email array from the email addresses object
-            for (const property in emailAddresses) {
-                    //check the element's class name to make sure that only the correct email array is deleted
-                    if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
-                        //let email = property;
-                        console.log("delete the email array");
-                        delete emailAddresses[property];
-                        
-                        //delete emailAddresses.${CSS.escape(property)}; 
-                        console.log(emailAddresses);
-                    }
-            }
+    if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
+        console.log("delete EMAIL GALLERY");
+        //remove the whole email gallery, as this is the last image
+        event.target.parentElement.parentElement.remove(); 
+        //delete the email array from the email addresses object
+        for (const property in emailAddresses) {
+                //check the element's class name to make sure that only the correct email array is deleted
+                if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
+                    //let email = property;
+                    console.log("delete the email array");
+                    delete emailAddresses[property];
+                    
+                    //delete emailAddresses.${CSS.escape(property)}; 
+                    console.log(emailAddresses);
+                }
         }
+    }
 
-        else if(event.target.classList.contains("delete-button")) {
-            console.log("delete IMAGE");
-           event.target.parentElement.remove(); //remove the selected image only
-           //add code to remove the selected image object from the array
-        } 
+    else if(event.target.classList.contains("delete-button")) {
+        console.log("delete IMAGE");
+        //add code to remove the selected image object from the array
+        //get child number to remove the correct item from the array index?
+        //let indexNumber = numberOfChildren - 4; //minus 1 because the array index starts from 0 not 1. And then minus another 1 because the header is included in the number of children as well as the images. Minus another 2 for reasons unknown
+        //console.log(indexNumber);
+
+        //have to remove the image from the array before removing the DOM image element or I can't use its class in a condition
+        for (const property in emailAddresses) {
+            ///////need to create a regular array loop instead for this part??????????????????????????????
+            //also can I find a way to add the index number of an image as a class when it is first created? NOPE INDEXES CHANGE
+            //adding a class would be more foolproof than using the alt or url info
+            //add the picsum ID as a class. Not the index. Can then find a way to grab the class to get the index 
+
+            //class name = array.length; or something like that????
+            //let indexNumber = array.length;
+            //let className = imageIndex-${indexNumber};
+
+            //check the element's class name to make sure that only the correct email array is selected
+            //can then delete the correct item in the array
+            // if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
+            //     //emailAddresses[property].splice(indexNumber, 1); //THIS WORKS, I JUST NEED THE CORRECT INDEX NUMBER EACH TIME
+            //     console.log(emailAddresses);
+            // }
+
+            // const getArrayIndexNumber = () => {
+            //     const findIndex = emailAddresses[property].findIndex(event.target.parentElement);
+            //     return findIndex;
+            // }
+
+            //console.log(property.indexOf(''));
+
+            // const filtered = emailAddresses.filter(function()) {
+            // getArrayIndexNumber();
+            // console.log(getArrayIndexNumber);
+            const correctImage = event.target.nextElementSibling;
+            const IDNumber = correctImage.getAttribute('alt'); ///I think this is working - gets the PICSUM ID OF THE RIGHT IMAGE. Then need to delete the image object with the ID that matches
+            console.log(IDNumber);
+        }
+        //} 
+
+        // function checkAdult(age) {
+        //     return age >= document.getElementById("ageToCheck").value;
+        //   }
+          
+        //return ID 
+
+        //   function myFunction() {
+        //     document.getElementById("demo").innerHTML = ages.findIndex(checkAdult);
+        //   }
+        
+
+
+        //THIS WORKS /////////////////////////////////////////////////////////////
+        //remove only the selected image from the DOM
+        event.target.parentElement.remove(); 
+    } 
     
 })
 
