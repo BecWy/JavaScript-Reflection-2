@@ -5,6 +5,7 @@
     font-family: 'Open Sans', sans-serif; //have font-weights of 300, 400, 600
 }
 
+//COLORS
 $color1: #017883;
 //$color2: #00484e;
 //$color2: #d76500;
@@ -12,6 +13,13 @@ $color1: #017883;
 //$color2: #192122;
 $color2: #0d1b1d;
 $color3: #d76500;
+
+
+//BREAKPOINTS
+$break-xs: 767px;
+$break-sm: 768px;
+$break-med: 993px;
+$break-lg: 1260px;
 
 img {
     max-width: 100%;
@@ -28,6 +36,7 @@ img {
 }
 
 .intro {
+    width: 100%;
     text-align: center;
     h1,
     h2 {
@@ -45,15 +54,26 @@ img {
         font-weight: 400;
         font-size: 20px;
         margin-top: 0;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
         color: $color1;
+        @media (min-width: $break-lg) { 
+            margin-bottom: 45px; 
+        }
     }
 
     p {
         color: $color2;
         //margin-top: 40px;
         //margin-bottom: 40px;
-    }
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            @media (min-width: $break-lg) { 
+                margin-bottom: 10px; 
+            }
+        }
+    } 
+    
 }
 
 
@@ -189,6 +209,10 @@ form {
             height: 100px;
             width: 100px;
             margin: 5px;
+            transition: all 1s ease-out;
+            &:hover {
+                opacity: 0.6;
+            }
         }
     }
     h2 {
@@ -200,4 +224,30 @@ form {
         letter-spacing: 1px;
     }
 
+    a {
+        position: relative;
+    }
+}
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    //border: 2px solid red; //testing
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    z-index: 1000;
+    pointer-events:auto;
+    .delete-icon {
+        color:$color3;
+        font-size: 20px;
+        background-color:white;
+        border-radius: 50%;
+        border: 1px solid white;
+        pointer-events:none; ////makes the icon act transparent, so you can click the underlying element. MAY NOT WORK IN IE - to Check
+    }
 }
