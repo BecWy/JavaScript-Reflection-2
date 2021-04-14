@@ -266,7 +266,7 @@ divElements.addEventListener('click', (event)=> {
         //stop the hyperlink attached to the image from opening
         event.preventDefault(); 
 
-        console.log("delete email gallery"); //TEST
+        //console.log("delete email gallery"); //TEST
         //remove the whole email gallery, as this is the last image
         event.target.parentElement.parentElement.remove(); 
         //delete the email array from the email addresses object
