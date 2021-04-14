@@ -148,6 +148,7 @@ const createEmailGallery = () => {
 const reset = () => {
     emailInput.value = "";
     formFieldset.style.display = "none";
+    console.log("The updated emailAddress array is as follows:"); //for testing, improve readability in console
     console.log(emailAddresses); //for testing, appears to be working correctly 
 
     if(internetExplorer === false) {
@@ -262,10 +263,10 @@ divElements.addEventListener('click', (event)=> {
 
     //if last image
     if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
+        //stop the hyperlink attached to the image from opening
+        event.preventDefault(); 
 
-        event.preventDefault(); //stops the hyperlink from opening
-
-        console.log("delete EMAIL GALLERY");
+        console.log("delete email gallery"); //TEST
         //remove the whole email gallery, as this is the last image
         event.target.parentElement.parentElement.remove(); 
         //delete the email array from the email addresses object
@@ -273,7 +274,7 @@ divElements.addEventListener('click', (event)=> {
             //check the element's class name to make sure that only the correct email array is deleted
             if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
                 //let email = property;
-                console.log("delete the email array");
+                console.log("delete the email array"); //TEST
                 delete emailAddresses[property];
                 
                 //delete emailAddresses.${CSS.escape(property)}; 
@@ -285,39 +286,35 @@ divElements.addEventListener('click', (event)=> {
     //if not the last image
     else if(event.target.classList.contains("delete-button")) {
 
-        event.preventDefault(); //stops the hyperlink from opening
+        //stop the hyperlink attached to the image from opening
+        event.preventDefault(); 
 
         //check the elements class name to make sure that only the correct email array is selected
         for (const property in emailAddresses) {
             if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
                 
-                console.log(property);
+                //console.log(property); //TEST
 
                 let arrayKey = emailAddresses[property];
-                console.log(arrayKey); //TEST prints the email array - working correctly. Now need to loop through each image
+                //console.log(arrayKey); //TEST prints the email array - working correctly.
 
                 //return the class name of the element
                 const elementClassName = event.target.parentElement.className;
                 const elementPicsumID = elementClassName.slice(9); //from the 9th character
-                console.log(elementPicsumID);
+                //console.log(elementPicsumID); //TEST
 
                 //loop through the image objects in the array to search for the correct Picsum ID
                 let i = 0;
                 let j = 0;
                 for (i = 0; i < arrayKey.length; i++) {
-
-                        if(arrayKey[i].id == elementPicsumID) {
-                            j = i;
-                            console.log(j); //TEST to check this is the index number of the item with the same Picsum ID 
-                        }
-                        
+                    if(arrayKey[i].id == elementPicsumID) {
+                        j = i;
+                        console.log(`The deleted image had the index number ${j}`); //TEST to check this is the index number of the item with the same Picsum ID 
+                    }      
                 }
                 arrayKey.splice(j, 1);   
-                console.log(arrayKey.length); //TEST the number of items remaining in the array
-                console.log(emailAddresses); //TEST to check that the correct image has been removed
-
-                //now the correct email array is selected, need to loop over the items in the array to locate the correct one
-                console.log("delete IMAGE");
+                console.log(`There are ${arrayKey.length} images remaining in this email gallery`); //TEST the number of items remaining in the array
+                console.log(emailAddresses); //TEST can use this to check that the correct image has been removed          
             }
         }
         
