@@ -256,15 +256,13 @@ save.addEventListener('click', (event) => {
 //also, if it's the last image attached to the email then I need to delete the whole email gallery - needs to check array length.
 //need to check parent id or url
 divElements.addEventListener('click', (event)=> {
+    
     ///numberOfChildren includes the number of images in the email gallery AS WELL AS THE HEADER
     let numberOfChildren = event.target.parentElement.parentElement.childElementCount;
     //console.log(numberOfChildren);
 
     //if last image
     if(numberOfChildren === 2 && event.target.classList.contains("delete-button")) {
-
-        event.preventDefault(); //stops the hyperlink from opening
-
         console.log("delete EMAIL GALLERY");
         //remove the whole email gallery, as this is the last image
         event.target.parentElement.parentElement.remove(); 
@@ -284,9 +282,6 @@ divElements.addEventListener('click', (event)=> {
 
     //if not the last image
     else if(event.target.classList.contains("delete-button")) {
-
-        event.preventDefault(); //stops the hyperlink from opening
-
         //check the elements class name to make sure that only the correct email array is selected
         for (const property in emailAddresses) {
             if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
