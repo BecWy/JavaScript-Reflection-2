@@ -208,14 +208,14 @@ save.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
         newEmailAddress = emailInput.value.toLowerCase();
-        console.log('email address stored');
+        //console.log('email address stored'); //TEST
 
         //CHECK IF THE EMAIL ADDRESS IS ALREADY SAVED 
         //using a for..in loop to check previous email addresses
         for (const property in emailAddresses) {
             //if the email address already exists as a property of the email addresses object
             if(newEmailAddress === property) {
-                console.log('email address already saved');
+                //console.log('email address already saved'); //TEST
                 //create an image object for the selected image
                 //push this image object onto the existing email array to that it appears in the gallery for that email address
                 const newImageObject = createImageObject();
@@ -236,7 +236,7 @@ save.addEventListener('click', (event) => {
         //use the condition to check if the email address has been used previously. 
         //If it hasn't then it creates a new email address array with the image data inside
         if(newEmailAddress !== savedEmailAddress) {
-            console.log('email address is new');
+            //console.log('email address is new'); //TEST
             //1) create an image object for the selected image 2) create a new array for the email address
             //3) push the image data into the email address array
             const newImage = createImageObject();

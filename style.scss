@@ -5,6 +5,7 @@
     font-family: 'Open Sans', sans-serif; //have font-weights of 300, 400, 600
 }
 
+//COLORS
 $color1: #017883;
 //$color2: #00484e;
 //$color2: #d76500;
@@ -12,6 +13,13 @@ $color1: #017883;
 //$color2: #192122;
 $color2: #0d1b1d;
 $color3: #d76500;
+
+
+//BREAKPOINTS
+$break-xs: 767px;
+$break-sm: 768px;
+$break-med: 993px;
+$break-lg: 1260px;
 
 img {
     max-width: 100%;
@@ -28,6 +36,7 @@ img {
 }
 
 .intro {
+    width: 100%;
     text-align: center;
     h1,
     h2 {
@@ -45,15 +54,26 @@ img {
         font-weight: 400;
         font-size: 20px;
         margin-top: 0;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
         color: $color1;
+        @media (min-width: $break-lg) { 
+            margin-bottom: 45px; 
+        }
     }
 
     p {
         color: $color2;
         //margin-top: 40px;
         //margin-bottom: 40px;
-    }
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            @media (min-width: $break-lg) { 
+                margin-bottom: 10px; 
+            }
+        }
+    } 
+    
 }
 
 
