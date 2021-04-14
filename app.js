@@ -298,17 +298,21 @@ divElements.addEventListener('click', (event)=> {
                 let i = 0;
                 let j = 0;
                 for (i = 0; i < arrayKey.length; i++) {
-                    //if() {
-                        //console.log(i);
-                        console.log(arrayKey.length);
+
+                        if(arrayKey[i].id == elementPicsumID) {
+                            j = i;
+                            console.log(j); //TEST the index number of the item with the same Picsum ID 
+                        }
 
                     //let picsumNumber = property.values[i];
                         //console.log(picsumNumber);
                         //property.i.contains();
                     //}  
-                        j = i;
+                        
                 }
-                arrayKey.splice(j, 1);  
+                arrayKey.splice(j, 1);   
+                console.log(arrayKey.length); //TEST the number of items remaining in the array
+                console.log(emailAddresses); //TEST to check that the correct image has been removed
 
 
 
