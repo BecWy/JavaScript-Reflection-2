@@ -94,12 +94,17 @@ const fetchImageIE = () => {
 const createImageElement = () => {
     let imageElement = document.createElement("img");  // Create a img element for the image, everytime an image object is created
     let imageAnchor = document.createElement("a"); //create an <a> which will be the parent of the img element
-    
+    let icon = document.createElement("i");
+
     //create and append a delete button to each image
     let newDeleteButton = document.createElement("div");
     newDeleteButton.classList.add('delete-button');
     imageAnchor.appendChild(newDeleteButton);
     imageAnchor.style.position = "relative";
+    icon.classList.add("delete-icon");
+    icon.classList.add("far");
+    icon.classList.add("fa-times-circle");
+    newDeleteButton.appendChild(icon);
 
     //display image and set the alt to the photo's ID number
     imageElement.src = currentImageURL; //add the URL as the img src
@@ -290,142 +295,29 @@ divElements.addEventListener('click', (event)=> {
                 const elementClassName = event.target.parentElement.className;
                 const elementPicsumID = elementClassName.slice(9); //from the 9th character
                 console.log(elementPicsumID);
-                
-                //const arrayTest = arrayKey.find(item => item.picsumID == elementPicsumID);
-                //console.log(arrayTest);
 
-
+                //loop through the image objects in the array to search for the correct Picsum ID
                 let i = 0;
                 let j = 0;
                 for (i = 0; i < arrayKey.length; i++) {
 
                         if(arrayKey[i].id == elementPicsumID) {
                             j = i;
-                            console.log(j); //TEST the index number of the item with the same Picsum ID 
+                            console.log(j); //TEST to check this is the index number of the item with the same Picsum ID 
                         }
-
-                    //let picsumNumber = property.values[i];
-                        //console.log(picsumNumber);
-                        //property.i.contains();
-                    //}  
                         
                 }
                 arrayKey.splice(j, 1);   
                 console.log(arrayKey.length); //TEST the number of items remaining in the array
                 console.log(emailAddresses); //TEST to check that the correct image has been removed
 
-
-
                 //now the correct email array is selected, need to loop over the items in the array to locate the correct one
                 console.log("delete IMAGE");
-
-
-
-                
-
-                //console.log(Object.values(object1));
-
-                //property.forEach(function(object, index) {
-               //     console.log(picsumID.value);
-            //}) 
-                  
-// fruits.forEach(myFunction);
-
-// function myFunction(item, index) {
-//   document.getElementById("demo").innerHTML += index + ":" + item + "<br>";
-// }
-
-                //console.log(property.length);
-
-                // emailAddresses[property].find(function() {
-                //     if(event.target.parentElement.classList.contains(`picsumID-`)) {}
-                // }); 
-
-                // let i = 0;
-                // for (i = 0; i < property.length; i++) {
-                //     //if() {
-                //         console.log(i);
-                //     //let picsumNumber = property.values[i];
-                //         //console.log(picsumNumber);
-                //         //property.i.contains();
-                //     //}
-                //     //emailAddresses[property].splice(indexNumber, 1); 
-                    
-                //     //text += cars[i] + "<br>";
-                // }
-
-                // property.forEach(findIndex)
-
-                // const findIndex = () => {
-                // }
-
             }
         }
-        //console.log("delete IMAGE");
-        //add code to remove the selected image object from the array
-        //get child number to remove the correct item from the array index?
-        //let indexNumber = numberOfChildren - 4; //minus 1 because the array index starts from 0 not 1. And then minus another 1 because the header is included in the number of children as well as the images. Minus another 2 for reasons unknown
-        //console.log(indexNumber);
-
-        //have to remove the image from the array before removing the DOM image element or I can't use its class in a condition
-        //for (const property in emailAddresses) {
-            ///////need to create a regular array loop instead for this part??????????????????????????????
-            //also can I find a way to add the index number of an image as a class when it is first created? NOPE INDEXES CHANGE
-            //adding a class would be more foolproof than using the alt or url info
-            //add the picsum ID as a class. Not the index. Can then find a way to grab the class to get the index 
-
-            //class name = array.length; or something like that????
-            //let indexNumber = array.length;
-            //let className = imageIndex-${indexNumber};
-
-            //check the element's class name to make sure that only the correct email array is selected
-            //can then delete the correct item in the array
-            // if(event.target.parentElement.parentElement.classList.contains(`gallery-${property}`)) {
-            //     //emailAddresses[property].splice(indexNumber, 1); //THIS WORKS, I JUST NEED THE CORRECT INDEX NUMBER EACH TIME
-            //     console.log(emailAddresses);
-            // }
-
-            // const getArrayIndexNumber = () => {
-            //     const findIndex = emailAddresses[property].findIndex(event.target.parentElement);
-            //     return findIndex;
-            // }
-
-            //console.log(property.indexOf(''));
-
-            // const filtered = emailAddresses.filter(function()) {
-            // getArrayIndexNumber();
-            // console.log(getArrayIndexNumber);
-            //const correctImage = event.target.nextElementSibling;
-            //const IDNumber = correctImage.getAttribute('alt'); ///I think this is working - gets the PICSUM ID OF THE RIGHT IMAGE. Then need to delete the image object with the ID that matches
-            //console.log(IDNumber);
-        //}
-        //} 
-
-        // function checkAdult(age) {
-        //     return age >= document.getElementById("ageToCheck").value;
-        //   }
-          
-        //return ID 
-
-        //   function myFunction() {
-        //     document.getElementById("demo").innerHTML = ages.findIndex(checkAdult);
-        //   }
         
-
-
-        //THIS WORKS /////////////////////////////////////////////////////////////
         //remove only the selected image from the DOM
         event.target.parentElement.remove(); 
     } 
     
 })
-
-
-//USING ARRAY.FILTER
-// var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-// var filtered = array.filter(function(value, index, arr){ 
-//     return value > 5;
-// });
-
-//filtered => [6, 7, 8, 9]
-//array => [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
