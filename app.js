@@ -144,7 +144,8 @@ const createEmailGallery = () => {
 }
 
 //RESET AFTER AN IMAGE IS SAVED //////////////////////////////////////////////////////////////////
- //clears the email input field, hides the email input, displays a new image
+ //clears the email input field, hides the email input, 
+ //displays a new image, set saved email address back to null (important because if an email gallery is deleted but then you try to re-add it, the program thinks it exists because saved email address matches new email address)
 const reset = () => {
     emailInput.value = "";
     formFieldset.style.display = "none";
@@ -156,6 +157,7 @@ const reset = () => {
     } else {
         fetchImageIE();
     }
+    savedEmailAddress = null;
 }
 
 
@@ -206,12 +208,14 @@ save.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
         newEmailAddress = emailInput.value.toLowerCase();
+        console.log('email address stored');
 
         //CHECK IF THE EMAIL ADDRESS IS ALREADY SAVED 
         //using a for..in loop to check previous email addresses
         for (const property in emailAddresses) {
             //if the email address already exists as a property of the email addresses object
             if(newEmailAddress === property) {
+                console.log('email address already saved');
                 //create an image object for the selected image
                 //push this image object onto the existing email array to that it appears in the gallery for that email address
                 const newImageObject = createImageObject();
@@ -232,6 +236,7 @@ save.addEventListener('click', (event) => {
         //use the condition to check if the email address has been used previously. 
         //If it hasn't then it creates a new email address array with the image data inside
         if(newEmailAddress !== savedEmailAddress) {
+            console.log('email address is new');
             //1) create an image object for the selected image 2) create a new array for the email address
             //3) push the image data into the email address array
             const newImage = createImageObject();
