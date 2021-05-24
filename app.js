@@ -147,7 +147,7 @@ const createEmailGallery = () => {
  //clears the email input field, hides the email input, 
  //displays a new image, set saved email address back to null (important because if an email gallery is deleted but then you try to re-add it, the program thinks it exists because saved email address matches new email address)
 const reset = () => {
-    emailInput.value = "";
+    //emailInput.value = ""; //disabled based on feedback, it's less annoying to leave the most recently used email in the text field.
     formFieldset.style.display = "none";
     console.log("The updated emailAddress array is as follows:"); //for testing, improve readability in console
     console.log(emailAddresses); //for testing, appears to be working correctly 
