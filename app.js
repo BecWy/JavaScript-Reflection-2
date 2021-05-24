@@ -4,8 +4,9 @@
 ////VARIABLES //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 let internetExplorer = false;
+//let img = document.querySelector("#picsumImg"); exists in fetchImage()
 let url = "https://picsum.photos/300";
-let img = document.querySelector("#picsumImg");
+let imgContainer = document.querySelector(".img-container");
 let emailInput = document.querySelector("#email");
 const skip = document.querySelector("#skip");
 const keep = document.querySelector("#keep");
@@ -42,6 +43,7 @@ const checkBrowser = () => {
 //FETCH IMAGE ////////////////////////////////////////////////////////////////////////////////////
 //for normal browsers - uses fetch()
 const fetchImage = () => {
+    let img = document.querySelector("#picsumImg");
     fetch(url)
     ///get the data we need (aka the specific image's url) from the response
     .then(response => { 
@@ -52,6 +54,7 @@ const fetchImage = () => {
     //set the image source to the url that comes back from the API. Also need to reuse this later to attach it to an email
     .then(data => {
         img.src = data;
+        img.alt = picsumID;
         currentImageURL = data;
     })
     //catch is what needs to happen if there is an error
@@ -62,6 +65,7 @@ const fetchImage = () => {
 
 //for IE - uses Axios
 const fetchImageIE = () => {
+    let img = document.querySelector("#picsumImg");
     // axios.get(url) //note that Axios data is automatically parsed to a JS object
     // ///get the data we need (aka the specific image's url) from the response
     const axiosImage = () => axios.get("https://picsum.photos/300")
@@ -170,6 +174,10 @@ checkBrowser();
 //PAGE LOADED EVENT LISTENER ///////////////////////////////////////////////////////////////////////
 //use the fetch function to get an new image
 document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0); //prevents the page scrolling down on page load/refresh
+    let mainImg = document.createElement("img");  // Create the main img element
+    mainImg.id = "picsumImg";
+    imgContainer.appendChild(mainImg);
     if(internetExplorer === false) {
         fetchImage();
     } else {

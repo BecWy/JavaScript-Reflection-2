@@ -77,18 +77,16 @@ img {
 }
 
 
-
-
-
 .img-container {
-    //height: 300px;
-    //width: 300px;
-    width: 95%;
-    max-width: 300px;
     max-height: 300px;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    @media (min-width: 320px) {
+        height: 300px;
+        width: 300px;
+    }
 }
 
 .buttons {
@@ -101,7 +99,7 @@ img {
 }
 
 
-#button-div {
+.button-div {
     width: 45%;
 }
 
